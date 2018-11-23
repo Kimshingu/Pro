@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.CartDao">
+	
+	<resultMap type="Cart" id="cartRowMapper">
+		<result property="userEmail" column="user_email"/>
+		<result property="productId" column="product_id" />
+		<result property="cartSize" column="cart_size"/>
+		<result property="cartColor" column="cart_color"/>
+		<result property="cartCount" column="cart_count"/>
+	</resultMap>
+	
+	<insert id="insert">
+		insert 
+		into cart(user_email, product_id, cart_size, cart_color, cart_count) 
+		values(#{userEmail}, #{productId}, #{cartSize}, #{cartColor}, #{cartCount})
+	</insert>
+	
+	<update id="update">
+		<!-- update cart 
+		set user_email= #{userEmail}, product_id=#{productId}, cart_size=#{cartSize}, cart_color=#{cartColor}, 
+		cart_count= #{cartCount}
+		where user_email=#{userEmail} and product_id=#{productId} and cart_size=#{cartSize} and cart_color=#{cartColor} -->
+	</update>
+	
+	<delete id="delete">
+		delete from cart
+		where user_email=#{userEmail} and product_id=#{productId} and cart_size=#{cartSize} and cart_color = #{cartColor}
+	</delete>
+	
+	<select id="findAll" resultMap="cartRowMapper">
+		select * from cart order by user_email asc
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from cart
+	</select>
+
+	<select id="findOne"  resultType="Cart">
+		select * from cart 
+		where user_email=#{userEmail} and product_id=#{productId} and cart_size=#{cartSize} and cart_color = #{cartColor}
+	</select>
+
+</mapper>

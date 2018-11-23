@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ProductDao">
+	
+	<resultMap type="Product" id="productRowMapper">
+		<result property="productId" column="product_id"/>
+		<result property="productImg" column="product_img" />
+		<result property="productName" column="product_name"/>
+		<result property="productPrice" column="product_price"/>
+		<result property="productDeliveryCharge" column="product_delivery_charge"/>
+		<result property="productSeller" column="product_seller"/>
+		<result property="productCourier" column="product_courier"/>
+	</resultMap>
+	
+	<insert id="insert">
+		insert 
+		into product(product_id, product_img, product_name, product_price, product_delivery_charge, product_seller, product_courier) 
+		values(#{productId}, #{productImg}, #{productName}, #{productPrice}, #{productDeliveryCharge}, #{productSeller}, #{productCourier})
+	</insert>
+	
+	<update id="update">
+		update product set product_img= #{productImg}, product_name=#{productName}, product_price=#{productPrice}, product_delivery_charge=#{productDeliveryCharge}, 
+		product_seller= #{productSeller}, product_courier= #{productCourier}
+		where product_id=#{productId}
+	</update>
+	
+	<delete id="delete">
+		delete from product where product_id=#{productId}
+	</delete>
+	
+	<select id="findAll" resultMap="productRowMapper">
+		select * from product order by product_id asc
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from product
+	</select>
+
+	<select id="findOne" resultType="Product">
+		select * from product where product_id=#{productId}
+	</select>
+
+</mapper>

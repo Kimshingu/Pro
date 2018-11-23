@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.OrderDetailDao">
+	
+	<resultMap type="OrderDetail" id="orderDetailRowMapper">
+		<result property="orderId" column="order_id"/>
+		<result property="userEmail" column="user_email" />
+		<result property="productId" column="product_id"/>
+		<result property="orderDetailSize" column="order_detail_size"/>
+		<result property="orderDetailColor" column="order_detail_color"/>
+		<result property="orderDetailCount" column="order_detail_count"/>
+	</resultMap>
+	
+	<insert id="insert">
+		insert into order_detail (order_id, user_email, product_id, order_detail_size, order_detail_color, order_detail_count)
+		values (#{orderId},#{userEmail},#{productId},#{orderDetailSize},#{orderDetailColor},#{orderDetailCount})
+	</insert>
+	
+	<update id="update">
+		update order_detail set order_detail_count = #{orderDetailCount}
+		where order_id=#{orderId} and user_email=#{userEmail} and product_id=#{productId} and order_detail_size=#{orderDetailSize} and order_detail_color=#{orderDetailColor}
+	</update>
+	
+	<delete id="delete">
+		delete from order_detail 
+		where order_id=#{orderId} and user_email=#{userEmail} and product_id=#{productId} and order_detail_size=#{orderDetailSize} and order_detail_color=#{orderDetailColor}
+	</delete>
+	
+	<select id="findAll" resultMap="orderDetailRowMapper">
+		select * from order_detail
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from order_detail
+	</select>
+
+	<select id="findOne"  resultType="OrderDetail">
+		select * from order_detail
+		where order_id=#{orderId} and user_email=#{userEmail} and product_id=#{productId} and order_detail_size=#{orderDetailSize} and order_detail_color=#{orderDetailColor}
+	</select>
+
+</mapper>

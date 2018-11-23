@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.OrderDao">
+	
+	<resultMap type="OrderDetail" id="orderRowMapper">
+		<result property="orderId" column="order_id"/>
+		<result property="userEmail" column="user_email" />
+		<result property="orderPayMethod" column="order_pay_method"/>
+	</resultMap>
+	
+	<insert id="insert">
+		insert into orders(order_id,user_email,order_pay_method)
+		values(#{orderId},#{userEmail},#{orderPayMethod})
+	</insert>
+	
+	<update id="update">
+		update orders set order_pay_method = #{orderPayMethod}
+		where order_id = #{orderId}
+	</update>
+	
+	<delete id="delete">
+		delete from orders where order_id = #{orderID}
+	</delete>
+	
+	<select id="findAll" resultMap="orderRowMapper">
+		select * from orders order by order_id asc
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from orders
+	</select>
+
+	<select id="findOne"  resultType="Order">
+		select * from orders where order_id = #{orderID}
+	</select>
+
+</mapper>
